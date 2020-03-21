@@ -21,10 +21,14 @@ namespace Lab_01.Core
 
         public bool IsMagic
         {
-            get { return true; }
+            get
+            {
+                var r = Enumerable.Range(0, Count).Select(p => SumRow(p));
+                return true;
+            }
         }
 
-        private int SumRow(int i)
+        public int SumRow(int i)
         {
             var s = 0;
             for (var j = 0; j < Count; j++)
@@ -35,7 +39,7 @@ namespace Lab_01.Core
             return s;
         }
 
-        private int SumColumn(int j)
+        public int SumColumn(int j)
         {
             var s = 0;
             for (var i = 0; i < Count; i++)
@@ -46,7 +50,7 @@ namespace Lab_01.Core
             return s;
         }
 
-        private int SumMainDiagonal()
+        public int SumMainDiagonal()
         {
             var s = 0;
             for (var i = 0; i < Count; i++)
@@ -57,7 +61,7 @@ namespace Lab_01.Core
             return s;
         }
 
-        private int SumAntiDiagonal()
+        public int SumAntiDiagonal()
         {
             var s = 0;
             for (var i = 0; i < Count; i++)
