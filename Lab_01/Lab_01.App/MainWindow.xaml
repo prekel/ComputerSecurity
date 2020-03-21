@@ -5,5 +5,5 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Lab_01.App.MainWindow"
         Title="Lab_01.App">
-    Welcome to Avalonia!
+    <Button></Button>
 </Window>
