@@ -1,16 +1,34 @@
 ﻿using System.Linq;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Lab_01.Core
 {
-    public class MagicSquare
+    public class MagicSquare : IEnumerable<int>
     {
-        public int Count => _data.Length;
+        public int Count { get; }
         private readonly int[,] _data;
 
-        public MagicSquare(int[,] data)
+        public MagicSquare(int n)
         {
-            _data = data;
+            Count = n;
+            _data = new int[n, n];
+        }
+
+        public MagicSquare(string s)
+        {
+            var rows = s.Split('\n');
+            Count = rows.Length;
+            _data = new int[Count, Count];
+            for (var i = 0; i < Count; i++)
+            {
+                var col = rows[i].Split();
+                for (var j = 0; j < Count; j++)
+                {
+                    this[i, j] = Int32.Parse(col[j]);
+                }
+            }
         }
 
         public int this[int i, int j]
@@ -18,16 +36,24 @@ namespace Lab_01.Core
             get => _data[i, j];
             set => _data[i, j] = value;
         }
+        
+        public bool IsMagic => IsMagicSum && IsDistinct;
+        
+        public bool IsMagicSum => 
+            Enumerable.Range(0, Count - 1)
+                .Select(SumRow)
+                .Concat(Enumerable.Range(0, Count - 1)
+                    .Select(SumColumn))
+                .Append(SumMainDiagonal())
+                .Append(SumAntiDiagonal())
+                .Distinct()
+                .Count()
+                .Equals(1);
 
-        public bool IsMagic
-        {
-            get
-            {
-                var r = Enumerable.Range(0, Count).Select(p => SumRow(p));
-                return true;
-            }
-        }
-
+        public bool IsDistinct =>
+            this.OrderBy(p => p)
+                .SequenceEqual(Enumerable.Range(1, Count * Count));
+        
         public int SumRow(int i)
         {
             var s = 0;
@@ -70,6 +96,16 @@ namespace Lab_01.Core
             }
 
             return s;
+        }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            return _data.Cast<int>().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
