@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Net.Mime;
+using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -16,6 +18,8 @@ namespace Lab_01.App
         private TextBox CiphertextTextBox => this.FindControl<TextBox>("CiphertextTextBox");
         private TextBox KeyTextBox => this.FindControl<TextBox>("KeyTextBox");
 
+        private ComboBox KeysComboBox => this.FindControl<ComboBox>("KeysComboBox");
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -24,6 +28,14 @@ namespace Lab_01.App
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            using (var sr = new StreamReader("squares.txt"))
+            {
+                KeysComboBox.Items = sr
+                    .ReadToEnd()
+                    .Replace("\r", "")
+                    .Split("\n\n");
+            }
 
             RefreshKey();
         }
@@ -54,6 +66,11 @@ namespace Lab_01.App
             var text = Cipher.Encrypt(ct);
 
             TextTextBox.Text = text;
+        }
+
+        private void OnKeysComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            KeyTextBox.Text = KeysComboBox.SelectedItem + "\n";
         }
     }
 }
