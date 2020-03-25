@@ -12,6 +12,10 @@ namespace Lab_01.App
     {
         private MagicSquareCipher Cipher { get; set; }
 
+        private TextBox TextTextBox => this.FindControl<TextBox>("TextTextBox");
+        private TextBox CiphertextTextBox => this.FindControl<TextBox>("CiphertextTextBox");
+        private TextBox KeyTextBox => this.FindControl<TextBox>("KeyTextBox");
+
         public MainWindow()
         {
             InitializeComponent();
@@ -21,33 +25,35 @@ namespace Lab_01.App
         {
             AvaloniaXamlLoader.Load(this);
 
-            Cipher = new MagicSquareCipher(
-                new MagicSquare(
-                    this.FindControl<TextBox>("KeyTextBox").Text
-                    )
-                );
+            RefreshKey();
+        }
+
+        private void RefreshKey()
+        {
+            Cipher = new MagicSquareCipher(new MagicSquare(KeyTextBox.Text));
+        }
+
+        private void OnRefreshKeyButtonClick(object sender, RoutedEventArgs e)
+        {
+            RefreshKey();
         }
 
         private void OnCryptButtonClick(object sender, RoutedEventArgs e)
         {
-            var textTextBox = this.FindControl<TextBox>("TextTextBox");
-            var ciphertextTextBox = this.FindControl<TextBox>("CiphertextTextBox");
-            var text = textTextBox.Text;
+            var text = TextTextBox.Text;
 
             var ct = Cipher.Crypt(text);
 
-            ciphertextTextBox.Text = ct;
+            CiphertextTextBox.Text = ct;
         }
 
         private void OnEncryptButtonClick(object sender, RoutedEventArgs e)
         {
-            var textTextBox = this.FindControl<TextBox>("TextTextBox");
-            var ciphertextTextBox = this.FindControl<TextBox>("CiphertextTextBox");
-            var ct = textTextBox.Text;
+            var ct = CiphertextTextBox.Text;
 
             var text = Cipher.Encrypt(ct);
 
-            textTextBox.Text = text;
+            TextTextBox.Text = text;
         }
     }
 }

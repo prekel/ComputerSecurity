@@ -39,7 +39,15 @@ namespace Lab_01.Core
                 {
                     for (var j = 0; j < Key.Count; j++)
                     {
-                        CipherTextMatrix[i, j] = value[i * Key.Count + j];
+                        var index = i * Key.Count + j;
+                        if (index >= value.Length)
+                        {
+                            CipherTextMatrix[i, j] = EmptyChar;
+                        }
+                        else
+                        {
+                            CipherTextMatrix[i, j] = value[index];
+                        }
                     }
                 }
             }

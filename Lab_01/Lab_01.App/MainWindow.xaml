@@ -22,7 +22,7 @@
   </Grid.RowDefinitions>
   
   <TextBlock Text="Текст:" Grid.Row="0" Grid.Column="0"/>
-  <TextBox x:Name="TextTextBox" Grid.Row="0" Grid.Column="1" />
+  <TextBox x:Name="TextTextBox" Text="qweASDzxc" Grid.Row="0" Grid.Column="1" />
   
   <TextBlock Text="Шифротекст:" Grid.Row="2" Grid.Column="0"/>
   <TextBox x:Name="CiphertextTextBox" Grid.Row="2" Grid.Column="1" />
@@ -36,16 +36,24 @@
     <RowDefinition Height="Auto"/>
     <RowDefinition Height="25"/>
     <RowDefinition Height="1*" MinHeight="50"/>
+    <RowDefinition Height="Auto"/>
   </Grid.RowDefinitions>
     
     <TextBlock Text="Ключ (магический квадрат):" Grid.Row="0" Grid.Column="0"/>
     <ComboBox Grid.Row="1" Grid.Column="0"></ComboBox>
     <TextBox x:Name="KeyTextBox" Grid.Row="2" Grid.Column="0" Text="2 7 6&#x0a;9 5 1&#x0a;4 3 8&#x0a;"/>
+    <Button Width="160" Height="25" Content="Обновить ключ" Grid.Row="3" Grid.Column="0">
+      <Button.Click><![CDATA[OnRefreshKeyButtonClick]]></Button.Click>
+    </Button>
   </Grid>
     
   <StackPanel Grid.Row="2" Grid.Column="2" Margin="4">
-    <Button Width="160" Height="25" Content="Зашифровать" Click="OnCryptButtonClick"></Button>
-    <Button Width="160" Height="25" Content="Расшифровать" Click="OnEncryptButtonClick"></Button>
+    <Button Width="160" Height="25" Content="Зашифровать">
+      <Button.Click><![CDATA[OnCryptButtonClick]]></Button.Click>
+    </Button>
+    <Button Width="160" Height="25" Content="Расшифровать">
+      <Button.Click><![CDATA[OnEncryptButtonClick]]></Button.Click>
+    </Button>
     <CheckBox Content="Убрать пробелы"></CheckBox>
     <CheckBox Content="Перевести в верхний регистр"></CheckBox>
   </StackPanel>
