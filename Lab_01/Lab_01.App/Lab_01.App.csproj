@@ -18,9 +18,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Lab_01.Core\Lab_01.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="squares.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>

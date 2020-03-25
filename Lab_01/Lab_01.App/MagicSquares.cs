@@ -1,4 +1,12 @@
-2 7 6
+using System.IO;
+
+namespace Lab_01.App
+{
+    public static class MagicSquares
+    {
+        public const string Filename = "squares.txt";
+        
+        public const string Squares = @"2 7 6
 9 5 1
 4 3 8
 
@@ -152,3 +160,18 @@
 71 72 28 27 25 76 24 23 79 80
 81 19 18 14 85 86 87 13 12 90
 10 9 3 94 95 96 97 98 2 1 
+";
+
+        public static void Save()
+        {
+            using var sw = new StreamWriter(Filename);
+            sw.Write(Squares);
+        }
+
+        public static string Load()
+        {
+            using var sr = new StreamReader(Filename);
+            return sr.ReadToEnd();
+        }
+    }
+}

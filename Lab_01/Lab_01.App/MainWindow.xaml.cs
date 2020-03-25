@@ -17,9 +17,8 @@ namespace Lab_01.App
         private TextBox TextTextBox => this.FindControl<TextBox>("TextTextBox");
         private TextBox CiphertextTextBox => this.FindControl<TextBox>("CiphertextTextBox");
         private TextBox KeyTextBox => this.FindControl<TextBox>("KeyTextBox");
-
         private ComboBox KeysComboBox => this.FindControl<ComboBox>("KeysComboBox");
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,13 +28,14 @@ namespace Lab_01.App
         {
             AvaloniaXamlLoader.Load(this);
 
-            using (var sr = new StreamReader("squares.txt"))
+            if (!File.Exists(MagicSquares.Filename))
             {
-                KeysComboBox.Items = sr
-                    .ReadToEnd()
-                    .Replace("\r", "")
-                    .Split("\n\n");
+                MagicSquares.Save();
             }
+            
+            KeysComboBox.Items = MagicSquares.Load()
+                .Replace("\r", "")
+                .Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
 
             RefreshKey();
         }
