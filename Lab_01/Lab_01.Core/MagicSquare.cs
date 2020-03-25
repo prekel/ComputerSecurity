@@ -18,7 +18,7 @@ namespace Lab_01.Core
 
         public MagicSquare(string s)
         {
-            var rows = s.Split('\n');
+            var rows = s.Trim('\n').Split('\n');
             Count = rows.Length;
             _data = new int[Count, Count];
             for (var i = 0; i < Count; i++)

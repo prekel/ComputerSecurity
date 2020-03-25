@@ -4,6 +4,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Lab_01.App.MainWindow"
-        Title="Lab_01.App">
-    <Button></Button>
+        Title="Lab_01.App"
+        Width="900"
+        MinWidth="500"
+        Height="500"
+        MinHeight="300">
+<Grid Margin="4" >
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="100" />
+    <ColumnDefinition Width="1*" MinWidth="200"/>
+    <ColumnDefinition Width="1*" MinWidth="200"/>
+  </Grid.ColumnDefinitions>
+  <Grid.RowDefinitions>
+    <RowDefinition Height="1*" MinHeight="50"/>
+    <RowDefinition Height="10" />
+    <RowDefinition Height="1*" MinHeight="50"/>
+  </Grid.RowDefinitions>
+  
+  <TextBlock Text="Текст:" Grid.Row="0" Grid.Column="0"/>
+  <TextBox x:Name="TextTextBox" Grid.Row="0" Grid.Column="1" />
+  
+  <TextBlock Text="Шифротекст:" Grid.Row="2" Grid.Column="0"/>
+  <TextBox x:Name="CiphertextTextBox" Grid.Row="2" Grid.Column="1" />
+
+  
+  <Grid Grid.Row="0" Grid.Column="2" Margin="4">
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="1*" />
+  </Grid.ColumnDefinitions>
+  <Grid.RowDefinitions>
+    <RowDefinition Height="Auto"/>
+    <RowDefinition Height="25"/>
+    <RowDefinition Height="1*" MinHeight="50"/>
+  </Grid.RowDefinitions>
+    
+    <TextBlock Text="Ключ (магический квадрат):" Grid.Row="0" Grid.Column="0"/>
+    <ComboBox Grid.Row="1" Grid.Column="0"></ComboBox>
+    <TextBox x:Name="KeyTextBox" Grid.Row="2" Grid.Column="0" Text="2 7 6&#x0a;9 5 1&#x0a;4 3 8&#x0a;"/>
+  </Grid>
+    
+  <StackPanel Grid.Row="2" Grid.Column="2" Margin="4">
+    <Button Width="160" Height="25" Content="Зашифровать" Click="OnCryptButtonClick"></Button>
+    <Button Width="160" Height="25" Content="Расшифровать" Click="OnEncryptButtonClick"></Button>
+    <CheckBox Content="Убрать пробелы"></CheckBox>
+    <CheckBox Content="Перевести в верхний регистр"></CheckBox>
+  </StackPanel>
+
+</Grid>
 </Window>
