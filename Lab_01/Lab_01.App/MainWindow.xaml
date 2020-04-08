@@ -37,6 +37,7 @@
     <RowDefinition Height="25"/>
     <RowDefinition Height="1*" MinHeight="50"/>
     <RowDefinition Height="Auto"/>
+    <RowDefinition Height="Auto"/>
   </Grid.RowDefinitions>
     
     <TextBlock Text="Ключ (магический квадрат):" Grid.Row="0" Grid.Column="0"/>
@@ -44,7 +45,8 @@
       <ComboBox.SelectionChanged><![CDATA[OnKeysComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
     </ComboBox>
     <TextBox x:Name="KeyTextBox" Grid.Row="2" Grid.Column="0" Text="2 7 6&#x0a;9 5 1&#x0a;4 3 8&#x0a;"/>
-    <Button Width="160" Height="25" Content="Обновить ключ" Grid.Row="3" Grid.Column="0">
+    <TextBox x:Name="FillerCharTextBox" Grid.Row="3" Grid.Column="0" Watermark="dfsf" Text=" "/>
+    <Button Width="160" Height="25" Content="Обновить ключ" Grid.Row="4" Grid.Column="0">
       <Button.Click><![CDATA[OnRefreshKeyButtonClick]]></Button.Click>
     </Button>
   </Grid>
