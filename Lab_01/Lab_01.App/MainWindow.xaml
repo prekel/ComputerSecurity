@@ -16,8 +16,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Текст:" Grid.Row="0" Grid.Column="0"/>
-        <TextBox x:Name="TextTextBox" Text="qweASDzxc" Grid.Row="0" Grid.Column="1" AcceptsReturn="True"
-                 TextWrapping="Wrap" Watermark="Текст"/>
+        <TextBox x:Name="TextTextBox" Grid.Row="0" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 Watermark="Текст"/>
 
         <TextBlock Text="Шифротекст:" Grid.Row="2" Grid.Column="0"/>
         <TextBox x:Name="CiphertextTextBox" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"

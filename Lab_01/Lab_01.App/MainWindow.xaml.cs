@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Lab_01.Core;
+using MessageBox.Avalonia;
 
 namespace Lab_01.App
 {
@@ -90,24 +91,42 @@ namespace Lab_01.App
 
         private void OnCryptButtonClick(object sender, RoutedEventArgs e)
         {
-            RefreshKey();
+            try
+            {
+                RefreshKey();
 
-            var text = TransformString(TextTextBox.Text);
+                var text = TransformString(TextTextBox.Text);
 
-            var ct = Cipher.Crypt(text);
+                var ct = Cipher.Crypt(text);
 
-            CiphertextTextBox.Text = ct;
+                CiphertextTextBox.Text = ct;
+            }
+            catch (Exception ex)
+            {
+                var msgBox = MessageBoxManager
+                    .GetMessageBoxStandardWindow("Ошибка", ex.Message + "\n" + ex.StackTrace);
+                msgBox.Show();
+            }
         }
 
         private void OnEncryptButtonClick(object sender, RoutedEventArgs e)
         {
-            RefreshKey();
+            try
+            {
+                RefreshKey();
 
-            var ct = CiphertextTextBox.Text;
+                var ct = CiphertextTextBox.Text;
 
-            var text = Cipher.Encrypt(ct);
+                var text = Cipher.Encrypt(ct);
 
-            TextTextBox.Text = text;
+                TextTextBox.Text = text;
+            }
+            catch (Exception ex)
+            {
+                var msgBox = MessageBoxManager
+                    .GetMessageBoxStandardWindow("Ошибка", ex.Message + "\n" + ex.StackTrace);
+                msgBox.Show();
+            }
         }
 
         private void OnKeysComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
