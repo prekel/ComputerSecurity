@@ -1,12 +1,16 @@
-using System;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace Lab_01.Core
 {
     public class MagicSquareCipher
     {
+        public MagicSquareCipher(MagicSquare key, char emptyChar = ' ')
+        {
+            Key = key;
+            CipherTextMatrix = new char[Key.Count, Key.Count];
+            EmptyChar = emptyChar;
+        }
+
         public int MaxLength => Key.Count * Key.Count;
 
         public MagicSquare Key { get; }
@@ -15,7 +19,7 @@ namespace Lab_01.Core
 
         public string Text { get; set; }
 
-        public char EmptyChar { get; set; } = '\0';
+        public char EmptyChar { get; set; }
 
         public string CipherText
         {
@@ -51,13 +55,6 @@ namespace Lab_01.Core
                     }
                 }
             }
-        }
-
-        public MagicSquareCipher(MagicSquare key, char emptyChar = ' ')
-        {
-            Key = key;
-            CipherTextMatrix = new char[Key.Count, Key.Count];
-            EmptyChar = emptyChar;
         }
 
         public string Crypt(string text)

@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lab_01.Core
 {
     public class MagicSquare : IEnumerable<int>
     {
-        public int Count { get; }
         private readonly int[,] _data;
 
         public MagicSquare(int n)
@@ -31,15 +30,17 @@ namespace Lab_01.Core
             }
         }
 
+        public int Count { get; }
+
         public int this[int i, int j]
         {
             get => _data[i, j];
             set => _data[i, j] = value;
         }
-        
+
         public bool IsMagic => IsMagicSum && IsDistinct;
-        
-        public bool IsMagicSum => 
+
+        public bool IsMagicSum =>
             Enumerable.Range(0, Count - 1)
                 .Select(SumRow)
                 .Concat(Enumerable.Range(0, Count - 1)
@@ -53,7 +54,11 @@ namespace Lab_01.Core
         public bool IsDistinct =>
             this.OrderBy(p => p)
                 .SequenceEqual(Enumerable.Range(1, Count * Count));
-        
+
+        public IEnumerator<int> GetEnumerator() => _data.Cast<int>().GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
         public int SumRow(int i)
         {
             var s = 0;
@@ -96,16 +101,6 @@ namespace Lab_01.Core
             }
 
             return s;
-        }
-
-        public IEnumerator<int> GetEnumerator()
-        {
-            return _data.Cast<int>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

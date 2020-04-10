@@ -5,7 +5,7 @@ namespace Lab_01.App
     public static class MagicSquares
     {
         public const string Filename = "squares.txt";
-        
+
         public const string Squares = @"2 7 6
 9 5 1
 4 3 8

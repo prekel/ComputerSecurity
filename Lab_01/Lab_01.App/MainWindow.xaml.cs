@@ -1,11 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
-using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Lab_01.Core;
@@ -14,6 +11,17 @@ namespace Lab_01.App
 {
     public class MainWindow : Window
     {
+        public MainWindow()
+        {
+            InitializeComponent();
+            FillerCharTextBox
+                .GetObservable(TextBox.TextProperty)
+                .Subscribe(text => OnRefreshKeyNeeded());
+            KeyTextBox
+                .GetObservable(TextBox.TextProperty)
+                .Subscribe(text => OnRefreshKeyNeeded());
+        }
+
         private MagicSquareCipher Cipher { get; set; }
 
         private bool IsRefreshKeyNeeded { get; set; } = true;
@@ -26,17 +34,6 @@ namespace Lab_01.App
         private CheckBox RemoveSpacesCheckBox => this.FindControl<CheckBox>("RemoveSpacesCheckBox");
         private CheckBox ToUpperCheckBox => this.FindControl<CheckBox>("ToUpperCheckBox");
         private CheckBox RemoveNonLettersCheckBox => this.FindControl<CheckBox>("RemoveNonLettersCheckBox");
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            FillerCharTextBox
-                .GetObservable(TextBox.TextProperty)
-                .Subscribe(text => OnRefreshKeyNeeded());
-            KeyTextBox
-                .GetObservable(TextBox.TextProperty)
-                .Subscribe(text => OnRefreshKeyNeeded());
-        }
 
         private void OnRefreshKeyNeeded()
         {
@@ -51,7 +48,7 @@ namespace Lab_01.App
             {
                 MagicSquares.Save();
             }
-            
+
             KeysComboBox.Items = MagicSquares.Load()
                 .Replace("\r", "")
                 .Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
@@ -61,7 +58,11 @@ namespace Lab_01.App
 
         private void RefreshKey()
         {
-            if (!IsRefreshKeyNeeded) return;
+            if (!IsRefreshKeyNeeded)
+            {
+                return;
+            }
+
             Cipher = new MagicSquareCipher(new MagicSquare(KeyTextBox.Text), FillerCharTextBox.Text.First());
             IsRefreshKeyNeeded = false;
         }
@@ -73,10 +74,12 @@ namespace Lab_01.App
             {
                 ret = ret.Replace(" ", "");
             }
+
             if (RemoveNonLettersCheckBox.IsChecked != null && RemoveNonLettersCheckBox.IsChecked.Value)
             {
-                ret = new String(ret.Where(Char.IsLetter).ToArray());
+                ret = new string(ret.Where(Char.IsLetter).ToArray());
             }
+
             if (ToUpperCheckBox.IsChecked != null && ToUpperCheckBox.IsChecked.Value)
             {
                 ret = ret.ToUpperInvariant();
