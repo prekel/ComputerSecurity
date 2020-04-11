@@ -45,16 +45,23 @@ namespace Lab_01.App
         {
             AvaloniaXamlLoader.Load(this);
 
-            if (!File.Exists(MagicSquares.Filename))
+            try
             {
-                MagicSquares.Save();
+                if (!File.Exists(MagicSquares.Filename))
+                {
+                    MagicSquares.Save();
+                }
+
+                KeysComboBox.Items = MagicSquares.Load()
+                    .Replace("\r", "")
+                    .Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
+
+                RefreshKey();
             }
-
-            KeysComboBox.Items = MagicSquares.Load()
-                .Replace("\r", "")
-                .Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
-
-            RefreshKey();
+            catch (Exception ex)
+            {
+                ExceptionMessageBox(ex);
+            }
         }
 
         private void RefreshKey()
@@ -103,9 +110,7 @@ namespace Lab_01.App
             }
             catch (Exception ex)
             {
-                var msgBox = MessageBoxManager
-                    .GetMessageBoxStandardWindow("Ошибка", ex.Message + "\n" + ex.StackTrace);
-                msgBox.Show();
+                ExceptionMessageBox(ex);
             }
         }
 
@@ -123,9 +128,7 @@ namespace Lab_01.App
             }
             catch (Exception ex)
             {
-                var msgBox = MessageBoxManager
-                    .GetMessageBoxStandardWindow("Ошибка", ex.Message + "\n" + ex.StackTrace);
-                msgBox.Show();
+                ExceptionMessageBox(ex);
             }
         }
 
@@ -133,6 +136,13 @@ namespace Lab_01.App
         {
             KeyTextBox.Text = KeysComboBox.SelectedItem + "\n";
             IsRefreshKeyNeeded = true;
+        }
+
+        private void ExceptionMessageBox(Exception ex)
+        {
+            var msgBox = MessageBoxManager
+                .GetMessageBoxStandardWindow("Ошибка", ex.Message + "\n" + ex.StackTrace);
+            msgBox.Show();
         }
     }
 }
