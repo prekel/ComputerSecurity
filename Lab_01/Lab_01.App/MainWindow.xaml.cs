@@ -21,6 +21,7 @@ namespace Lab_01.App
             KeyTextBox
                 .GetObservable(TextBox.TextProperty)
                 .Subscribe(text => OnRefreshKeyNeeded());
+            RefreshKey();
         }
 
         private MagicSquareCipher Cipher { get; set; }
@@ -35,10 +36,12 @@ namespace Lab_01.App
         private CheckBox RemoveSpacesCheckBox => this.FindControl<CheckBox>("RemoveSpacesCheckBox");
         private CheckBox ToUpperCheckBox => this.FindControl<CheckBox>("ToUpperCheckBox");
         private CheckBox RemoveNonLettersCheckBox => this.FindControl<CheckBox>("RemoveNonLettersCheckBox");
+        private TextBlock MagicSquareInfoTextBlock => this.FindControl<TextBlock>("MagicSquareInfoTextBlock");
 
         private void OnRefreshKeyNeeded()
         {
             IsRefreshKeyNeeded = true;
+            MagicSquareInfoTextBlock.Text = " ";
         }
 
         private void InitializeComponent()
@@ -55,8 +58,6 @@ namespace Lab_01.App
                 KeysComboBox.Items = MagicSquares.Load()
                     .Replace("\r", "")
                     .Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
-
-                RefreshKey();
             }
             catch (Exception ex)
             {
@@ -66,13 +67,33 @@ namespace Lab_01.App
 
         private void RefreshKey()
         {
-            if (!IsRefreshKeyNeeded)
+            try
             {
-                return;
-            }
+                if (!IsRefreshKeyNeeded)
+                {
+                    return;
+                }
 
-            Cipher = new MagicSquareCipher(new MagicSquare(KeyTextBox.Text), FillerCharTextBox.Text.First());
-            IsRefreshKeyNeeded = false;
+                Cipher = new MagicSquareCipher(new MagicSquare(KeyTextBox.Text), FillerCharTextBox.Text.First());
+                IsRefreshKeyNeeded = false;
+
+                if (Cipher.Key.IsMagic)
+                {
+                    MagicSquareInfoTextBlock.Text = "Квадрат магический";
+                }
+                else if (Cipher.Key.IsDistinct)
+                {
+                    MagicSquareInfoTextBlock.Text = "Квадрат не магический, но шифрование возможно";
+                }
+                else
+                {
+                    MagicSquareInfoTextBlock.Text = "Квадрат не магический, шифрование будет с ошибками";
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionMessageBox(ex);
+            }
         }
 
         private string TransformString(string text)
@@ -136,6 +157,7 @@ namespace Lab_01.App
         {
             KeyTextBox.Text = KeysComboBox.SelectedItem + "\n";
             IsRefreshKeyNeeded = true;
+            RefreshKey();
         }
 
         private void ExceptionMessageBox(Exception ex)
