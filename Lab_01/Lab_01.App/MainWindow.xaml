@@ -43,7 +43,7 @@
             <TextBox x:Name="KeyTextBox" AcceptsReturn="True" Grid.Row="2" Grid.Column="0"
                      Text="2 7 6&#x0a;9 5 1&#x0a;4 3 8&#x0a;"
                      Watermark="Магический квадрат:&#x0a;между ячейками в строке пробел, между строками перевод строки"/>
-            <Button Width="180" Height="25" Grid.Row="3" Grid.Column="0" Content="Повернуть на 90 против часовой">
+            <Button Width="195" Height="25" Grid.Row="3" Grid.Column="0" Content="Повернуть на 90 против часовой">
                 <Button.Click><![CDATA[OnRotateButtonClick]]></Button.Click>
             </Button>
             <TextBox x:Name="FillerCharTextBox" Grid.Row="4" Grid.Column="0"

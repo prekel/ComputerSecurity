@@ -2,8 +2,16 @@ using System.Text;
 
 namespace Lab_01.Core
 {
+    /// <summary>
+    ///     Шифрования методом магических квадратов.
+    /// </summary>
     public class MagicSquareCipher
     {
+        /// <summary>
+        ///     Инициализирует новый экземпляр класса шифрования методом магических квадратов.
+        /// </summary>
+        /// <param name="key">Ключ (магический квадрат).</param>
+        /// <param name="emptyChar">Символ, используемый на месте пустых ячеек.</param>
         public MagicSquareCipher(MagicSquare key, char emptyChar = ' ')
         {
             Key = key;
@@ -11,16 +19,34 @@ namespace Lab_01.Core
             EmptyChar = emptyChar;
         }
 
+        /// <summary>
+        ///     Максимальная и рекомендуемая длина текста, возможная шифрованием данным ключом.
+        /// </summary>
         public int MaxLength => Key.Count * Key.Count;
 
+        /// <summary>
+        ///     Ключ (магический квадрат).
+        /// </summary>
         public MagicSquare Key { get; }
 
-        public char[,] CipherTextMatrix { get; }
+        /// <summary>
+        ///     Матрица шифротекста (здесь шифротекст хранится).
+        /// </summary>
+        private char[,] CipherTextMatrix { get; }
 
-        public string Text { get; set; }
+        /// <summary>
+        ///     Текст.
+        /// </summary>
+        public string Text { get; private set; }
 
+        /// <summary>
+        ///     Символ, используемый на месте пустых ячеек.
+        /// </summary>
         public char EmptyChar { get; set; }
 
+        /// <summary>
+        ///     Шифротекст (вычисляется из матрицы шифротекста).
+        /// </summary>
         public string CipherText
         {
             get
@@ -57,6 +83,11 @@ namespace Lab_01.Core
             }
         }
 
+        /// <summary>
+        ///     Зашифровывает текст.
+        /// </summary>
+        /// <param name="text">Текст для шифирования.</param>
+        /// <returns>Шифротекст.</returns>
         public string Crypt(string text)
         {
             Text = text;
@@ -79,6 +110,11 @@ namespace Lab_01.Core
             return CipherText;
         }
 
+        /// <summary>
+        ///     Расшивровывает текст.
+        /// </summary>
+        /// <param name="cipherText">Шифротекст для расшифрования.</param>
+        /// <returns>Текст.</returns>
         public string Encrypt(string cipherText)
         {
             CipherText = cipherText;

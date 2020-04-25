@@ -155,8 +155,17 @@ namespace Lab_01.App
 
         private void OnRotateButtonClick(object sender, RoutedEventArgs e)
         {
-            Cipher.Key.Rotate();
-            KeyTextBox.Text = Cipher.Key.ToString();
+            try
+            {
+                RefreshKey();
+                Cipher.Key.Rotate();
+                KeyTextBox.Text = Cipher.Key.ToString();
+                RefreshKey();
+            }
+            catch (Exception ex)
+            {
+                ExceptionMessageBox(ex);
+            }
         }
 
         private void OnKeysComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)

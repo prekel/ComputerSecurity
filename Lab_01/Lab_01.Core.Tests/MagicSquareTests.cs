@@ -6,6 +6,20 @@ namespace Lab_01.Core.Tests
     public class MagicSquareTests
     {
         [Test]
+        public void RotateToStringTest()
+        {
+            var a = new MagicSquare("2 7 6\n9 5 1\n4 3 8");
+            var b = new MagicSquare("2 7 6\n9 5 1\n4 3 8");
+
+            b.Rotate();
+            b.Rotate();
+            b.Rotate();
+            b.Rotate();
+
+            Assert.AreEqual(a.ToString(), b.ToString());
+        }
+
+        [Test]
         public void Test1()
         {
             var a = new MagicSquare(3);

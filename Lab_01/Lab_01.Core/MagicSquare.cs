@@ -166,6 +166,10 @@ namespace Lab_01.Core
             }
         }
 
+        /// <summary>
+        ///     Преобразовывает в строку вставляя между строк перевод строки, а между рядом пробелы.
+        /// </summary>
+        /// <returns>Квадрат в виде строки.</returns>
         public override string ToString()
         {
             return String.Join("\n",
