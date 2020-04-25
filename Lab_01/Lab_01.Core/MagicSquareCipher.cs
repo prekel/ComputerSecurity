@@ -86,7 +86,7 @@ namespace Lab_01.Core
         /// <summary>
         ///     Зашифровывает текст.
         /// </summary>
-        /// <param name="text">Текст для шифирования.</param>
+        /// <param name="text">Текст для шифрования.</param>
         /// <returns>Шифротекст.</returns>
         public string Crypt(string text)
         {
@@ -111,9 +111,9 @@ namespace Lab_01.Core
         }
 
         /// <summary>
-        ///     Расшивровывает текст.
+        ///     Расшифровывает текст.
         /// </summary>
-        /// <param name="cipherText">Шифротекст для расшифрования.</param>
+        /// <param name="cipherText">Шифротекст для расшифрованиaя.</param>
         /// <returns>Текст.</returns>
         public string Encrypt(string cipherText)
         {
