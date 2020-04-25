@@ -158,7 +158,7 @@ namespace Lab_01.App
             try
             {
                 RefreshKey();
-                Cipher.Key.Rotate();
+                Cipher.Key.RotateAntiClockwise();
                 KeyTextBox.Text = Cipher.Key.ToString();
                 RefreshKey();
             }

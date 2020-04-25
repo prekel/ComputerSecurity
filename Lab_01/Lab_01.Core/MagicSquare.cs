@@ -151,7 +151,7 @@ namespace Lab_01.Core
         /// <summary>
         ///     Поворачивает квадрат на 90 градусов против часовой.
         /// </summary>
-        public void Rotate()
+        public void RotateAntiClockwise()
         {
             for (var x = 0; x < Count / 2; x++)
             {
@@ -175,15 +175,17 @@ namespace Lab_01.Core
             return String.Join("\n",
                 Enumerable.Range(0, Count)
                     .Select(p =>
-                    {
-                        var a = new int[Count];
-                        for (var i = 0; i < Count; i++)
                         {
-                            a[i] = this[p, i];
-                        }
+                            var a = new int[Count];
+                            for (var i = 0; i < Count; i++)
+                            {
+                                a[i] = this[p, i];
+                            }
 
-                        return String.Join(" ", a.Select(u => u.ToString()));
-                    }));
+                            return String.Join(" ", a.Select(u => u.ToString()));
+                        }
+                    )
+            );
         }
     }
 }

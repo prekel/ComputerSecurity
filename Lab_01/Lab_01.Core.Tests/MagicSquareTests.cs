@@ -11,10 +11,10 @@ namespace Lab_01.Core.Tests
             var a = new MagicSquare("2 7 6\n9 5 1\n4 3 8");
             var b = new MagicSquare("2 7 6\n9 5 1\n4 3 8");
 
-            b.Rotate();
-            b.Rotate();
-            b.Rotate();
-            b.Rotate();
+            b.RotateAntiClockwise();
+            b.RotateAntiClockwise();
+            b.RotateAntiClockwise();
+            b.RotateAntiClockwise();
 
             Assert.AreEqual(a.ToString(), b.ToString());
         }
