@@ -153,6 +153,12 @@ namespace Lab_01.App
             }
         }
 
+        private void OnRotateButtonClick(object sender, RoutedEventArgs e)
+        {
+            Cipher.Key.Rotate();
+            KeyTextBox.Text = Cipher.Key.ToString();
+        }
+
         private void OnKeysComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             KeyTextBox.Text = KeysComboBox.SelectedItem + "\n";
