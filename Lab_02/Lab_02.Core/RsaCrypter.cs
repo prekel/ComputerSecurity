@@ -16,7 +16,7 @@ namespace Lab_02.Core
 
         public IEnumerable<BigInteger> Crypt(string a)
         {
-            return a.Select(i => Crypt(i)).ToList();
+            return a.Select(i => Crypt(i));
         }
     }
 }
