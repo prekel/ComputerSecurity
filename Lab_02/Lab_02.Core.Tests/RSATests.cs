@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 
 using NUnit.Framework;
@@ -7,6 +8,19 @@ namespace Lab_02.Core.Tests
     [TestFixture]
     public class RSATests
     {
+        [Test]
+        public void RsaStringTest1()
+        {
+            var rs = new RSADecrypter(31);
+            var rc = new RSACrypter(rs.OpenKey);
+
+            const string m = "qwerty";
+            var c = rc.Crypt(m);
+            var md = rs.Decrypt(c);
+
+            Assert.AreEqual(m, md);
+        }
+
         [Test]
         public void RSATest1()
         {
@@ -43,18 +57,15 @@ namespace Lab_02.Core.Tests
         [Test]
         public void RSATest2()
         {
-            var rs = new RSAServer(31);
-            var rc = new RSAClient(rs.OpenKey);
+            var rs = new RSADecrypter(31);
+            var rc = new RSACrypter(rs.OpenKey);
 
-            var m1 = new BigInteger(8);
-            var m2 = new BigInteger(27);
-            var m3 = new BigInteger(5);
-            var c1 = rc.Crypt(m1);
-            var c2 = rc.Crypt(m2);
-            var c3 = rc.Crypt(m3);
-            var m1d = rs.Decrypt(c1);
-            var m2d = rs.Decrypt(c2);
-            var m3d = rs.Decrypt(c3);
+            var r = new Random();
+            for (var i = 0; i < 100; i++)
+            {
+                var m = new BigInteger(r.Next(1, 10000));
+                Assert.AreEqual(m, rs.Decrypt(rc.Crypt(m)));
+            }
         }
     }
 }

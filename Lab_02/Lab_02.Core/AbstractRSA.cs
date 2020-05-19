@@ -4,15 +4,7 @@ namespace Lab_02.Core
 {
     public abstract class AbstractRSA
     {
-        public AbstractRSA()
-        {
-        }
-
-        public AbstractRSA(int nLength)
-        {
-        }
-
-        public RSAOpenKey OpenKey { get; protected set; } = new RSAOpenKey();
+        public RSAOpenKey OpenKey { get; } = new RSAOpenKey();
 
         public class RSAOpenKey
         {

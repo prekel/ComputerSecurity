@@ -1,21 +1,26 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 
 namespace Lab_02.Core
 {
-    public class RSAServer : AbstractRSA
+    public class RSADecrypter : AbstractRSA
     {
-        public RSAServer(int nLength)
+        public RSADecrypter(int nLength)
         {
-            var p = RandomPrimeBigInt(nLength / 2);
-            var q = RandomPrimeBigInt(nLength - nLength / 2);
-            OpenKey.N = p * q;
-            var d = (p - 1) * (q - 1);
-            OpenKey.S = CoprimeLessBigInt(d);
-            E = E2(OpenKey.S, d);
+            while (E <= 0)
+            {
+                var p = RandomPrimeBigInt(nLength / 2);
+                var q = RandomPrimeBigInt(nLength - nLength / 2);
+                OpenKey.N = p * q;
+                var d = (p - 1) * (q - 1);
+                OpenKey.S = CoprimeLessBigInt(d);
+                E = E2(OpenKey.S, d);
+            }
         }
 
-        public BigInteger E { get; set; }
+        private BigInteger E { get; }
 
         private RandomNumberGenerator Random { get; } = RandomNumberGenerator.Create();
 
@@ -142,19 +147,16 @@ namespace Lab_02.Core
 
         private BigInteger E2(BigInteger s, BigInteger d)
         {
-            while (true)
-            {
-                var r = RandomBigInt(0, d);
-
-                BigInteger x1, y1;
-                var b = gcd(r * s, d, ref x1, ref y1);
-                if (b == 1)
-                {
-                    return r;
-                }
-            }
+            BigInteger x1, y1;
+            var b = gcd(s, d, ref x1, ref y1);
+            return x1;
         }
 
         public BigInteger Decrypt(BigInteger s) => BigInteger.ModPow(s, E, OpenKey.N);
+
+        public string Decrypt(IEnumerable<BigInteger> a)
+        {
+            return new string(a.Select(i => (char) Decrypt(i)).ToArray());
+        }
     }
 }
