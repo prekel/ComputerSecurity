@@ -1,10 +1,13 @@
 using System;
-using System.IO;
 using System.Linq;
-using Avalonia;
+using System.Numerics;
+
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+
+using Lab_02.Core;
+
 using MessageBox.Avalonia;
 
 namespace Lab_02.App
@@ -14,92 +17,26 @@ namespace Lab_02.App
         public MainWindow()
         {
             InitializeComponent();
-            FillerCharTextBox
-                .GetObservable(TextBox.TextProperty)
-                .Subscribe(text => OnRefreshKeyNeeded());
-            KeyTextBox
-                .GetObservable(TextBox.TextProperty)
-                .Subscribe(text => OnRefreshKeyNeeded());
-            RefreshKey();
+            RsaDecrypter = new RsaDecrypter(31);
+            RsaCrypter = new RsaCrypter(RsaDecrypter.OpenKey);
         }
-
-        private bool IsRefreshKeyNeeded { get; set; } = true;
 
         private TextBox TextTextBox => this.FindControl<TextBox>("TextTextBox");
         private TextBox CiphertextTextBox => this.FindControl<TextBox>("CiphertextTextBox");
-        private TextBox FillerCharTextBox => this.FindControl<TextBox>("FillerCharTextBox");
-        private TextBox KeyTextBox => this.FindControl<TextBox>("KeyTextBox");
-        private ComboBox KeysComboBox => this.FindControl<ComboBox>("KeysComboBox");
-        private CheckBox RemoveSpacesCheckBox => this.FindControl<CheckBox>("RemoveSpacesCheckBox");
-        private CheckBox ToUpperCheckBox => this.FindControl<CheckBox>("ToUpperCheckBox");
-        private CheckBox RemoveNonLettersCheckBox => this.FindControl<CheckBox>("RemoveNonLettersCheckBox");
-        private TextBlock MagicSquareInfoTextBlock => this.FindControl<TextBlock>("MagicSquareInfoTextBlock");
 
-        private void OnRefreshKeyNeeded()
-        {
-            IsRefreshKeyNeeded = true;
-            MagicSquareInfoTextBlock.Text = " ";
-        }
+        private RsaDecrypter RsaDecrypter { get; }
+        private RsaCrypter RsaCrypter { get; }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                ExceptionMessageBox(ex);
-            }
-        }
-
-        private void RefreshKey()
-        {
-            try
-            {
-                if (!IsRefreshKeyNeeded)
-                {
-                    return;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ExceptionMessageBox(ex);
-            }
-        }
-
-        private string TransformString(string text)
-        {
-            var ret = text;
-            if (RemoveSpacesCheckBox.IsChecked != null && RemoveSpacesCheckBox.IsChecked.Value)
-            {
-                ret = ret.Replace(" ", "");
-            }
-
-            if (RemoveNonLettersCheckBox.IsChecked != null && RemoveNonLettersCheckBox.IsChecked.Value)
-            {
-                ret = new string(ret.Where(Char.IsLetter).ToArray());
-            }
-
-            if (ToUpperCheckBox.IsChecked != null && ToUpperCheckBox.IsChecked.Value)
-            {
-                ret = ret.ToUpperInvariant();
-            }
-
-            return ret;
         }
 
         private void OnCryptButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                RefreshKey();
-
-                var text = TransformString(TextTextBox.Text);
-
-
+                CiphertextTextBox.Text = String.Join(", ", RsaCrypter.Crypt(TextTextBox.Text).Select(p => p));
             }
             catch (Exception ex)
             {
@@ -111,10 +48,9 @@ namespace Lab_02.App
         {
             try
             {
-                RefreshKey();
-
-                var ct = CiphertextTextBox.Text;
-
+                TextTextBox.Text =
+                    RsaDecrypter.Decrypt(CiphertextTextBox.Text.Split(new[] {",", " "},
+                        StringSplitOptions.RemoveEmptyEntries).Select(BigInteger.Parse));
             }
             catch (Exception ex)
             {
@@ -122,25 +58,7 @@ namespace Lab_02.App
             }
         }
 
-        private void OnRotateButtonClick(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                ExceptionMessageBox(ex);
-            }
-        }
-
-        private void OnKeysComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            KeyTextBox.Text = KeysComboBox.SelectedItem + "\n";
-            IsRefreshKeyNeeded = true;
-            RefreshKey();
-        }
-
-        private void ExceptionMessageBox(Exception ex)
+        private static void ExceptionMessageBox(Exception ex)
         {
             var msgBox = MessageBoxManager
                 .GetMessageBoxStandardWindow("Ошибка", ex.Message + "\n" + ex.StackTrace);

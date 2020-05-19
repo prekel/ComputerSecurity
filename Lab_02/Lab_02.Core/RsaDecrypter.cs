@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 
 namespace Lab_02.Core
 {
-    public class RSADecrypter : AbstractRSA
+    public class RsaDecrypter : AbstractRsa
     {
-        public RSADecrypter(int nLength)
+        public RsaDecrypter(int nLength)
         {
             while (E <= 0)
             {

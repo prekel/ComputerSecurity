@@ -4,9 +4,9 @@ using System.Numerics;
 
 namespace Lab_02.Core
 {
-    public class RSACrypter : AbstractRSA
+    public class RsaCrypter : AbstractRsa
     {
-        public RSACrypter(RSAOpenKey openkey)
+        public RsaCrypter(RSAOpenKey openkey)
         {
             OpenKey.N = openkey.N;
             OpenKey.S = openkey.S;
