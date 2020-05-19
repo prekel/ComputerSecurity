@@ -1,9 +1,68 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Lab_01.App.MainWindow"
-        Title="Lab_01.App">
-    Welcome to Avalonia!
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800"
+        d:DesignHeight="450" x:Class="Lab_01.App.MainWindow" Title="Lab_01.App" Width="900" MinWidth="500" Height="500"
+        MinHeight="300">
+    <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="1*" MinWidth="200"/>
+            <ColumnDefinition Width="1*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" MinHeight="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="1*" MinHeight="50"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Текст:" Grid.Row="0" Grid.Column="0"/>
+        <TextBox x:Name="TextTextBox" Grid.Row="0" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 Watermark="Текст"/>
+
+        <TextBlock Text="Шифротекст:" Grid.Row="2" Grid.Column="0"/>
+        <TextBox x:Name="CiphertextTextBox" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 Watermark="Шифротекст"/>
+
+        <Grid Grid.Row="0" Grid.Column="2" Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="1*" MinHeight="55"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Ключ (магический квадрат):" Grid.Row="0" Grid.Column="0"/>
+            <ComboBox x:Name="KeysComboBox" Grid.Row="1" Grid.Column="0">
+                <ComboBox.SelectionChanged><![CDATA[OnKeysComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
+            </ComboBox>
+            <TextBox x:Name="KeyTextBox" AcceptsReturn="True" Grid.Row="2" Grid.Column="0"
+                     Text="2 7 6&#x0a;9 5 1&#x0a;4 3 8&#x0a;"
+                     Watermark="Магический квадрат:&#x0a;между ячейками в строке пробел, между строками перевод строки"/>
+            <Button Width="195" Height="25" Grid.Row="3" Grid.Column="0" Content="Повернуть на 90 против часовой">
+                <Button.Click><![CDATA[OnRotateButtonClick]]></Button.Click>
+            </Button>
+            <TextBox x:Name="FillerCharTextBox" Grid.Row="4" Grid.Column="0"
+                     Watermark="Символ-заполнитель для пустых ячеек квадрата" Text=" "/>
+            <TextBlock x:Name="MagicSquareInfoTextBlock" Text="" Grid.Row="5" Grid.Column="0"/>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Grid.Column="2" Margin="4">
+            <Button Width="160" Height="25" Content="Зашифровать">
+                <Button.Click><![CDATA[OnCryptButtonClick]]></Button.Click>
+            </Button>
+            <CheckBox x:Name="RemoveSpacesCheckBox" Content="Убрать пробелы"/>
+            <CheckBox x:Name="ToUpperCheckBox" Content="Перевести в верхний регистр"/>
+            <CheckBox x:Name="RemoveNonLettersCheckBox" Content="Убрать все не-буквы"/>
+            <TextBlock Height="10"/>
+            <Button Width="160" Height="25" Content="Расшифровать">
+                <Button.Click><![CDATA[OnEncryptButtonClick]]></Button.Click>
+            </Button>
+        </StackPanel>
+
+    </Grid>
 </Window>
