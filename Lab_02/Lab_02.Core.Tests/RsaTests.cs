@@ -9,20 +9,7 @@ namespace Lab_02.Core.Tests
     public class RsaTests
     {
         [Test]
-        public void RsaStringTest1()
-        {
-            var rs = new RsaDecrypter(31);
-            var rc = new RsaCrypter(rs.OpenKey);
-
-            const string m = "qwerty";
-            var c = rc.Crypt(m);
-            var md = rs.Decrypt(c);
-
-            Assert.AreEqual(m, md);
-        }
-
-        [Test]
-        public void RsaTest2()
+        public void RsaRandomTest1()
         {
             var rs = new RsaDecrypter(31);
             var rc = new RsaCrypter(rs.OpenKey);
@@ -33,6 +20,19 @@ namespace Lab_02.Core.Tests
                 var m = new BigInteger(r.Next(1, 10000));
                 Assert.AreEqual(m, rs.Decrypt(rc.Crypt(m)));
             }
+        }
+
+        [Test]
+        public void RsaStringTest1()
+        {
+            var rs = new RsaDecrypter(31);
+            var rc = new RsaCrypter(rs.OpenKey);
+
+            const string m = "qwerty";
+            var c = rc.Crypt(m);
+            var md = rs.Decrypt(c);
+
+            Assert.AreEqual(m, md);
         }
     }
 }

@@ -14,9 +14,6 @@ namespace Lab_02.Core
 
         public BigInteger Crypt(BigInteger m) => BigInteger.ModPow(m, OpenKey.S, OpenKey.N);
 
-        public IEnumerable<BigInteger> Crypt(string a)
-        {
-            return a.Select(i => Crypt(i));
-        }
+        public IEnumerable<BigInteger> Crypt(string a) => a.Select(i => Crypt(i));
     }
 }
