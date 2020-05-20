@@ -15,13 +15,13 @@
             <RowDefinition Height="1*" MinHeight="50"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Текст:" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock Text="Сообщение:" Grid.Row="0" Grid.Column="0"/>
         <TextBox x:Name="TextTextBox" Grid.Row="0" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
-                 Watermark="Текст"/>
+                 Watermark="Сообщение"/>
 
-        <TextBlock Text="Шифротекст:" Grid.Row="2" Grid.Column="0"/>
+        <TextBlock Text="Зашифрованное:" Grid.Row="2" Grid.Column="0"/>
         <TextBox x:Name="CiphertextTextBox" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
-                 Watermark="Шифротекст"/>
+                 Watermark="Зашифрованное сообщение"/>
 
         <Grid Grid.Row="0" Grid.Column="2" Margin="4">
             <Grid.ColumnDefinitions>

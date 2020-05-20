@@ -49,8 +49,9 @@ namespace Lab_02.App
             try
             {
                 TextTextBox.Text =
-                    RsaDecrypter.Decrypt(CiphertextTextBox.Text.Split(new[] {",", " "},
-                        StringSplitOptions.RemoveEmptyEntries).Select(BigInteger.Parse));
+                    RsaDecrypter.Decrypt(CiphertextTextBox.Text
+                        .Split(new[] {",", " "}, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(BigInteger.Parse));
             }
             catch (Exception ex)
             {

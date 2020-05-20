@@ -16,7 +16,8 @@ namespace Lab_02.Core
                 OpenKey.N = p * q;
                 var d = (p - 1) * (q - 1);
                 OpenKey.S = CoprimeLessBigInt(d);
-                E = E2(OpenKey.S, d);
+                var (_, e, _) = ExtendedGcd(OpenKey.S, d);
+                E = e;
             }
         }
 
@@ -129,34 +130,24 @@ namespace Lab_02.Core
             }
         }
 
-        public static BigInteger gcd(BigInteger a, BigInteger b, ref BigInteger x, ref BigInteger y)
+        private (BigInteger, BigInteger, BigInteger) ExtendedGcd(BigInteger a, BigInteger b)
         {
+            BigInteger x, y;
             if (a == 0)
             {
                 x = 0;
                 y = 1;
-                return b;
+                return (b, x, y);
             }
 
-            BigInteger x1, y1;
-            var d = gcd(b % a, a, ref x1, ref y1);
+            var (d, x1, y1) = ExtendedGcd(b % a, a);
             x = y1 - b / a * x1;
             y = x1;
-            return d;
-        }
-
-        private BigInteger E2(BigInteger s, BigInteger d)
-        {
-            BigInteger x1, y1;
-            var b = gcd(s, d, ref x1, ref y1);
-            return x1;
+            return (d, x, y);
         }
 
         public BigInteger Decrypt(BigInteger s) => BigInteger.ModPow(s, E, OpenKey.N);
 
-        public string Decrypt(IEnumerable<BigInteger> a)
-        {
-            return new string(a.Select(i => (char) Decrypt(i)).ToArray());
-        }
+        public string Decrypt(IEnumerable<BigInteger> a) => new string(a.Select(i => (char) Decrypt(i)).ToArray());
     }
 }
