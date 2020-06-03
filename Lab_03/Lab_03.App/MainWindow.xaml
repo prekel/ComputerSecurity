@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800"
+        d:DesignHeight="450" x:Class="Lab_03.App.MainWindow" Title="Lab_03.App" Width="900" MinWidth="500" Height="500"
+        MinHeight="300">
+    <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="1*" MinWidth="200"/>
+            <ColumnDefinition Width="1*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" MinHeight="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="1*" MinHeight="50"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Шифротекст:" Grid.Row="0" Grid.Column="0"/>
+        <TextBox x:Name="CiphertextTextBox" Grid.Row="0" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 Watermark="Шифротекст"/>
+
+        <TextBlock Text="Текст:" Grid.Row="2" Grid.Column="0"/>
+        <TextBox x:Name="TextTextBox" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 Watermark="Текст"/>
+
+
+        <StackPanel Grid.Row="0" Grid.Column="2" Margin="4">
+            <TextBlock Text="Вариант:"/>
+            <ComboBox x:Name="VariantsComboBox" Width="160" Height="25">
+                <ComboBox.SelectionChanged><![CDATA[OnVariantsComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
+            </ComboBox>
+            <TextBlock Text="Длина (в порядке убывания вероятности):"/>
+            <ComboBox x:Name="MuComboBox" Width="160" Height="25">
+                <ComboBox.SelectionChanged><![CDATA[OnMuComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
+            </ComboBox>
+            <Button Width="160" Height="25" Content="Подобрать длину">
+                <Button.Click><![CDATA[OnPossibleMusButtonClick]]></Button.Click>
+            </Button>
+            <TextBlock Text="Часто встречающиеся буквы:"/>
+            <TextBox x:Name="MostOcurredLettersTextBox" Width="160" Height="30"/>
+            <Button Width="160" Height="25" Content="Подобрать ключ">
+                <Button.Click><![CDATA[OnSuggestMostOccuredButtonClick]]></Button.Click>
+            </Button>
+            <TextBlock Text="Ключ:"/>
+            <TextBox x:Name="KeyTextBox" Width="160" Height="30"/>
+            <Button Width="160" Height="25" Content="Расшифровать">
+                <Button.Click><![CDATA[OnEncryptButtonClick]]></Button.Click>
+            </Button>
+            <Button Width="160" Height="25" Content="Исправить ключ">
+                <Button.Click><![CDATA[OnFixKeyButtonClick]]></Button.Click>
+            </Button>
+            <Button Width="160" Height="25" Content="Проверка">
+                <Button.Click><![CDATA[OnCheckKeyButtonClick]]></Button.Click>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

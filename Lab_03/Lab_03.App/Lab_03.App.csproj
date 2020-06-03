@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.9.6"/>
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.6"/>
+    <PackageReference Include="MessageBox.Avalonia" Version="0.9.6.1"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lab_03.Core\Lab_03.Core.csproj"/>
+  </ItemGroup>
+</Project>
