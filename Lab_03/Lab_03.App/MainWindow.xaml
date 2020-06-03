@@ -21,7 +21,7 @@
 
         <TextBlock Text="Текст:" Grid.Row="2" Grid.Column="0"/>
         <TextBox x:Name="TextTextBox" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
-                 Watermark="Текст" IsReadOnly="True"/>
+                 Watermark="Текст"/>
 
 
         <StackPanel Grid.Row="0" Grid.Column="2" Margin="4">
@@ -45,6 +45,12 @@
             <TextBox x:Name="KeyTextBox" Width="160" Height="30"/>
             <Button Width="160" Height="25" Content="Расшифровать">
                 <Button.Click><![CDATA[OnEncryptButtonClick]]></Button.Click>
+            </Button>
+            <Button Width="160" Height="25" Content="Исправить ключ">
+                <Button.Click><![CDATA[OnFixKeyButtonClick]]></Button.Click>
+            </Button>
+            <Button Width="160" Height="25" Content="Проверка">
+                <Button.Click><![CDATA[OnCheckKeyButtonClick]]></Button.Click>
             </Button>
         </StackPanel>
 

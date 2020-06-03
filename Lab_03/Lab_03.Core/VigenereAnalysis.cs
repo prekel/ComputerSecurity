@@ -13,6 +13,21 @@ namespace Lab_03.Core
 
         public int Mu { get; private set; }
 
+        public string MostOccuringLettets => new string(Enumerable.Range(0, Mu)
+            .Select(index => Enumerable.Range(0, VigenereDecrypter.TextOnlyLetters.Length / Mu)
+                .Select(i => VigenereDecrypter.TextOnlyLetters.Substring(i * Mu, Mu))
+                .Select(i => i[index])
+                .Aggregate(new Dictionary<char, int>(),
+                    (charcouner, c) =>
+                    {
+                        charcouner[c] = charcouner.ContainsKey(c) ? charcouner[c] + 1 : 1;
+                        return charcouner;
+                    })
+                .OrderByDescending(pair => pair.Value)
+                .Select(pair => pair.Key)
+                .First())
+            .ToArray());
+
         public void SuggestMu(int mu)
         {
             Mu = mu;
@@ -82,11 +97,36 @@ namespace Lab_03.Core
         }
 
         public IEnumerable<int> PossibleMus() =>
-            Enumerable.Range(2, 8)
+            Enumerable.Range(5, 5)
                 .GroupJoin(Subgrams(3)
                     .Where(pair => pair.Value.Count() >= 2)
                     .Select(pair => MuFromIndeces(pair.Value)), i => i, j => j, (i, ints) => (i, ints.Count()))
                 .OrderByDescending(i => i.Item2)
                 .Select(i => i.i);
+
+        public void FixKey(string post)
+        {
+            var pre = VigenereDecrypter.TextOnlyLetters;
+            var postOnlyLetters = new string(post.Where(Char.IsLetter).ToArray());
+            var ind = -1;
+            for (var i = 0; i < Math.Min(pre.Length, postOnlyLetters.Length); i++)
+            {
+                if (pre[i] == postOnlyLetters[i])
+                {
+                    continue;
+                }
+
+                ind = i;
+                break;
+            }
+
+            var k = ind % Mu;
+
+            var keychar = VigenereDecrypter.Decrypt(VigenereDecrypter.Key[k],
+                VigenereDecrypter.Decrypt(postOnlyLetters[ind], pre[ind]));
+
+            VigenereDecrypter.Key =
+                new string(VigenereDecrypter.Key.Select((c, i) => i == k ? keychar : c).ToArray());
+        }
     }
 }

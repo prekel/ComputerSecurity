@@ -71,8 +71,13 @@ namespace Lab_03.App
             try
             {
                 VigenereAnalysis = new VigenereAnalysis(CiphertextTextBox.Text);
-                MuComboBox.Items = VigenereAnalysis.PossibleMus();
-                MuComboBox.SelectedItem = MuComboBox.Items.Cast<int>().First();
+                var items = VigenereAnalysis.PossibleMus().ToList();
+                MuComboBox.Items = items;
+                MuComboBox.SelectedItem = items.First();
+
+                VigenereAnalysis.SuggestMu(items.First());
+                KeyTextBox.Text = VigenereAnalysis.VigenereDecrypter.Key;
+                MostOcurredLettersTextBox.Text = new string('О', VigenereAnalysis.Mu);
             }
             catch (Exception ex)
             {
@@ -103,6 +108,38 @@ namespace Lab_03.App
             {
                 VigenereAnalysis.VigenereDecrypter.Key = KeyTextBox.Text;
                 TextTextBox.Text = VigenereAnalysis.VigenereDecrypter.Text;
+                MostOcurredLettersTextBox.Text = VigenereAnalysis.MostOccuringLettets;
+            }
+            catch (Exception ex)
+            {
+                ExceptionMessageBox(ex);
+            }
+        }
+
+        private void OnFixKeyButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                VigenereAnalysis.FixKey(TextTextBox.Text);
+                KeyTextBox.Text = VigenereAnalysis.VigenereDecrypter.Key;
+                TextTextBox.Text = VigenereAnalysis.VigenereDecrypter.Text;
+                MostOcurredLettersTextBox.Text = VigenereAnalysis.MostOccuringLettets;
+            }
+            catch (Exception ex)
+            {
+                ExceptionMessageBox(ex);
+            }
+        }
+
+        private void OnCheckKeyButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                VigenereAnalysis.VigenereDecrypter.Key =
+                    Variants.GetAnswerByNumber((int) VariantsComboBox.SelectedItem);
+                KeyTextBox.Text = VigenereAnalysis.VigenereDecrypter.Key;
+                TextTextBox.Text = VigenereAnalysis.VigenereDecrypter.Text;
+                MostOcurredLettersTextBox.Text = VigenereAnalysis.MostOccuringLettets;
             }
             catch (Exception ex)
             {
