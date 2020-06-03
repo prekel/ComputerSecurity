@@ -15,32 +15,34 @@
             <RowDefinition Height="1*" MinHeight="50"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Сообщение:" Grid.Row="0" Grid.Column="0"/>
-        <TextBox x:Name="TextTextBox" Grid.Row="0" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
-                 Watermark="Сообщение"/>
+        <TextBlock Text="Шифротекст:" Grid.Row="0" Grid.Column="0"/>
+        <TextBox x:Name="CiphertextTextBox" Grid.Row="0" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 Watermark="Шифротекст"/>
 
-        <TextBlock Text="Зашифрованное:" Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="CiphertextTextBox" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
-                 Watermark="Зашифрованное сообщение"/>
+        <TextBlock Text="Текст:" Grid.Row="2" Grid.Column="0"/>
+        <TextBox x:Name="TextTextBox" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap"
+                 Watermark="Текст" IsReadOnly="True"/>
 
-        <Grid Grid.Row="0" Grid.Column="2" Margin="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="1*" MinHeight="55"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-        </Grid>
 
-        <StackPanel Grid.Row="2" Grid.Column="2" Margin="4">
-            <Button Width="160" Height="25" Content="Зашифровать">
-                <Button.Click><![CDATA[OnCryptButtonClick]]></Button.Click>
+        <StackPanel Grid.Row="0" Grid.Column="2" Margin="4">
+            <TextBlock Text="Вариант:"/>
+            <ComboBox x:Name="VariantsComboBox" Width="160" Height="25">
+                <ComboBox.SelectionChanged><![CDATA[OnVariantsComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
+            </ComboBox>
+            <TextBlock Text="Длина:"/>
+            <ComboBox x:Name="MuComboBox" Width="160" Height="25">
+                <ComboBox.SelectionChanged><![CDATA[OnMuComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
+            </ComboBox>
+            <Button Width="160" Height="25" Content="Подобрать длину">
+                <Button.Click><![CDATA[OnPossibleMusButtonClick]]></Button.Click>
             </Button>
+            <TextBlock Text="Часто встречающиеся буквы:"/>
+            <TextBox x:Name="MostOcurredLettersTextBox" Width="160" Height="30"/>
+            <Button Width="160" Height="25" Content="Подобрать ключ">
+                <Button.Click><![CDATA[OnSuggestMostOccuredButtonClick]]></Button.Click>
+            </Button>
+            <TextBlock Text="Ключ:"/>
+            <TextBox x:Name="KeyTextBox" Width="160" Height="30"/>
             <Button Width="160" Height="25" Content="Расшифровать">
                 <Button.Click><![CDATA[OnEncryptButtonClick]]></Button.Click>
             </Button>
