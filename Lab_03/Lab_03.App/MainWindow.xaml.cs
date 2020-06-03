@@ -51,6 +51,11 @@ namespace Lab_03.App
         {
             try
             {
+                if (MuComboBox.SelectedItem == null)
+                {
+                    return;
+                }
+
                 VigenereAnalysis.SuggestMu((int) MuComboBox.SelectedItem);
                 KeyTextBox.Text = VigenereAnalysis.VigenereDecrypter.Key;
                 MostOcurredLettersTextBox.Text = new string('О', VigenereAnalysis.Mu);
@@ -67,6 +72,7 @@ namespace Lab_03.App
             {
                 VigenereAnalysis = new VigenereAnalysis(CiphertextTextBox.Text);
                 MuComboBox.Items = VigenereAnalysis.PossibleMus();
+                MuComboBox.SelectedItem = MuComboBox.Items.Cast<int>().First();
             }
             catch (Exception ex)
             {

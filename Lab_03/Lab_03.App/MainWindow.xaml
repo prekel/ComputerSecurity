@@ -29,7 +29,7 @@
             <ComboBox x:Name="VariantsComboBox" Width="160" Height="25">
                 <ComboBox.SelectionChanged><![CDATA[OnVariantsComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
             </ComboBox>
-            <TextBlock Text="Длина:"/>
+            <TextBlock Text="Длина (в порядке убывания вероятности):"/>
             <ComboBox x:Name="MuComboBox" Width="160" Height="25">
                 <ComboBox.SelectionChanged><![CDATA[OnMuComboBoxSelectionChanged]]></ComboBox.SelectionChanged>
             </ComboBox>

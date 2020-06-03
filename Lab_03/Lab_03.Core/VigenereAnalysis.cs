@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Lab_03.Core
@@ -45,11 +46,9 @@ namespace Lab_03.Core
             // ReSharper disable once TailRecursiveCall
             b == 0 ? a : GCD(b, a % b);
 
-        public static int MuFromIndeces(IEnumerable<int> indeces)
-        {
-            var enumerable = indeces as int[] ?? indeces.ToArray();
-            return GCD(enumerable.Skip(1).Zip(enumerable.SkipLast(1), (a, b) => a - b));
-        }
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
+        public static int MuFromIndeces(IEnumerable<int> indeces) =>
+            GCD(indeces.Skip(1).Zip(indeces.SkipLast(1), (a, b) => a - b));
 
         public Dictionary<string, IEnumerable<int>> Subgrams(int length)
         {
@@ -82,11 +81,12 @@ namespace Lab_03.Core
             return res;
         }
 
-        public IEnumerable<int> PossibleMus() => Subgrams(3)
-            .Where(pair => pair.Value.Count() >= 2)
-            .Select(pair => MuFromIndeces(pair.Value))
-            .Where(a => 1 < a && a < 10)
-            .OrderByDescending(a => a)
-            .Distinct();
+        public IEnumerable<int> PossibleMus() =>
+            Enumerable.Range(2, 8)
+                .GroupJoin(Subgrams(3)
+                    .Where(pair => pair.Value.Count() >= 2)
+                    .Select(pair => MuFromIndeces(pair.Value)), i => i, j => j, (i, ints) => (i, ints.Count()))
+                .OrderByDescending(i => i.Item2)
+                .Select(i => i.i);
     }
 }
