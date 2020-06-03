@@ -6,12 +6,15 @@ namespace Lab_03.Core
 {
     public class CipherText
     {
-        public CipherText(string cipherTextOriginal) => CipherTextOriginal = cipherTextOriginal;
+        public CipherText(string cipherTextOriginal)
+        {
+            CipherTextOriginal = cipherTextOriginal;
+            CipherTextOnlyLetters = new string(CipherTextOriginal.Where(Char.IsLetter).ToArray());
+        }
 
         public string CipherTextOriginal { get; }
 
-        public string CipherTextOnlyLetters =>
-            new string(CipherTextOriginal.Where(Char.IsLetter).ToArray());
+        public string CipherTextOnlyLetters { get; }
 
         public string TextOnlyLetters { get; set; } = "";
 
