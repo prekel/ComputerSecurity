@@ -6,7 +6,7 @@ namespace Lab_03.Core
 {
     public class VigenereDecrypter
     {
-        private const string RussianLetters = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+        private const string RussianLetters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
         public VigenereDecrypter(string cipherTextOriginal)
         {

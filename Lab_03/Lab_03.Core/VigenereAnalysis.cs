@@ -97,7 +97,7 @@ namespace Lab_03.Core
         }
 
         public IEnumerable<int> PossibleMus() =>
-            Enumerable.Range(5, 5)
+            Enumerable.Range(1, 20)
                 .GroupJoin(Subgrams(3)
                     .Where(pair => pair.Value.Count() >= 2)
                     .Select(pair => MuFromIndeces(pair.Value)), i => i, j => j, (i, ints) => (i, ints.Count()))
